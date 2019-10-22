@@ -56,7 +56,6 @@ for p in z:
     
     z[up].location[0] = z[up].location[0] + translation_index[0]
     z[up].location[1] = z[up].location[1] + translation_index[1]
-    print(z[up])
     up = up + 1
     
     ##In this non-written code, create links between z[n].inputs and z[n].outputs
