@@ -36,6 +36,6 @@ Planned features for upcoming updates:
 * Paths end with =
 
 For example, 
-> rgba0..diff0-color/p1.rough//..glos0-color/p1.rough//=itex.p1=diff0.mixs0-slot1=glos0.mixs0-slot2=p1.mixs0-fac=mixs0.mato-surface=
+> rgba0..diff0-color/p1.rough//..glos0-color/p1.rough//=itex0.p1=diff0.mixs0-slot1=glos0.mixs0-slot2=p1.mixs0-fac=mixs0.mato0-surface=
 
 combines diffuse and glossy, sharing an RGB color, with an image texture as roughness and mix factor. It may look complicated, but it's honestly fairly intuitive to write with a little practice. All special characters have been chosen to avoid usage of the shift key, as well, making it even faster. (That assumes you have a numberpad for symbols such as +.) 
