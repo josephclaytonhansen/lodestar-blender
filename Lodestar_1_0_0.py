@@ -25,7 +25,9 @@ ntree = space.active_material
 ntree.node_tree.nodes.clear()
 
 ##text to translate should be received through the UI, but for now: 
-text = "rgba0..diff0-color/p1.rough//..glos0-color/p1.rough//=itex0.p1=diff0.mixs0-slot1=glos0.mixs0-slot2=p1.mixs0-fac=mixs0.p0=texc0-uv..mapv0..mute0..disp0..mato0-displace=ligp0-isshadowray-..mixs1-fac=tran0..mixs1-slot2=p0..mixs1-slot1=mixs1.mato0-surface="
+text1 = "rgba0..diff0-color/p1.rough//..glos0-color/p1.rough//=itex0.p1=diff0.mixs0-slot1=glos0.mixs0-slot2=p1.mixs0-fac=mixs0.p0=texc0-uv..mapv0..mute0..disp0..mato0-displace=ligp0-isshadowray-..mixs1-fac=tran0..mixs1-slot2=p0..mixs1-slot1=mixs1.mato0-surface="
+
+text = "rgba0..diff0-color/p1.rough//..glos0-color/p1.rough//=itex.p1=diff0.mixs0-slot1=glos0.mixs0-slot2=p1.mixs0-fac=mixs0.mato-surface="
 
 
 ##hold on to instances in z list and number them: all diff0 are combined into a single entry. diff1 would be a seperate entry. This way, each distinct node takes one slot in the z list. The lr dict turns z entries into nodes: lr[z[n][0:4]] gives the node type for lr translation. z[n] gives each individual node. 
@@ -56,8 +58,38 @@ for p in z:
     
     z[up].location[0] = z[up].location[0] + translation_index[0]
     z[up].location[1] = z[up].location[1] + translation_index[1]
+
     up = up + 1
     
     ##In this non-written code, create links between z[n].inputs and z[n].outputs
+
+scan = list()
+
+for i in range(0, len(text)):
+    nota = text[i]
+    if text[i:i+4] in lr:
+        scan.append(i)
+        #each location in scan is the start of a node. 
+        if i > 0:
+            if text[i-1] == ".":
+                if text[i-2] == ".":
+
+                    print("direct connection")
+                    #direct connection
+                else:
+
+                    print("path connection")
+                    #search paths
+            elif text[i-1] == "=":
+
+                print("path end")
+                #no input, search paths
+        
+
+print("\n\n\n\n--------------------")
+print(scan)
+print(len(scan))
+print(z)
+print(len(z))
 
     ##ntree.node_tree.links.new(OB.outputs[0], QB.inputs[0])
