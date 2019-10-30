@@ -40,9 +40,6 @@ def currentScan(count):
     znn = z[nn]
     return znn
 
-def forwardScan(count):
-    pass
-
 def scrub(direction,count):
     ##encompass all, for ease
     if direction == 0:
@@ -51,6 +48,18 @@ def scrub(direction,count):
         return lastScan(count)
     elif direction == 1:
         return forwardScan(count)
+    
+def attrScan(hunk, hh):
+    for ch in range(0,12):
+        c = hunk[ch]
+        if c.startswith('/'):
+            sockets[hh]=hunk[0:ch]
+        elif c.startswith('-'):
+            sockets[hh]=hunk[0:ch]
+        elif c.startswith('='):
+            sockets[hh]=hunk[0:ch]
+            if ch + hh > len(text)-2:
+                break
 
 ##THIS NEEDS FIXED.BADLY.
     
@@ -122,25 +131,8 @@ for h in attrs:
     hh = '%i' %h.start()
     hh = int(hh)
     hunk = text[hh:hh+12]
-    for ch in range(0,12):
-        c = hunk[ch]
-
-        if c.startswith('/'):
-            sockets[hh]=hunk[0:ch]
-            print("/")
-        elif c.startswith('-'):
-            sockets[hh]=hunk[0:ch]
-            print("-")
-        elif c.startswith('='):
-            sockets[hh]=hunk[0:ch]
-            print("=")
-            if ch + hh > len(text)-2:
-                break
-for s in sockets:
-    print(s, sockets[s])
-    
+    attrScan(hunk, hh)
 for i in range(0, len(text)):
-
     if text[i:i+4] in lr:
         scan.append(i)
         ##each location in scan is the start of a node. 
